@@ -6,16 +6,18 @@ import { render } from 'react-dom';
 
 const MainPage = (props) => {
 
-    let newArr = props.groupArray.map((element,index) => {
+    // filtering out duplicates before passing into total
+    let filteredTotalArray = props.totalArray.filter(e => 
+      !(props.groupArray.includes(e)))
+
+
+    let userGroups = props.groupArray.map((element,index) => {
+                 return (<li key={index}> {element} <button onClick={() => props.removeGroup(index)} className='button'> X </button> </li>) 
+                  });
+
+    let totalGroupList = filteredTotalArray.map((element,index) => {
                  return (<li key={index}> {element} </li>)
-                  })
-
-    // <ul> 
-      //            {props.groupArray.map(function(listValue, key){
-        //            return <li key={key}> {listValue} </li> 
-          //        })}
-            //    </ul> 
-
+                  });
 
 
     return (
@@ -46,13 +48,17 @@ const MainPage = (props) => {
             </div>
             
             <div>
-              <form onSubmit={props.addGroup}> 
+              <form onSubmit={props.combiner}> 
                 <input id='Group' type='text' name='GroupInput' placeholder='Enter name here'/> 
                 <input type='submit'/> 
-                <div> 
-                  {newArr}
-                </div>
               </form>
+                <div> 
+                <br /> 
+                <ul>
+                  {userGroups}
+                </ul>
+                </div>
+              
                
             </div>
           </div>
@@ -62,7 +68,7 @@ const MainPage = (props) => {
             <h3> Groups Available </h3>
             <div className='frame'>
               <ul id='groupsList'>
-                <li><button className='userGroup' href='#'>{props.allGroups}</button></li>
+                {totalGroupList}
               </ul>
             </div>
           </div>

@@ -69,7 +69,7 @@ const userController = {
     },
 
     addGroup: function (req, res) {
-      // console.log(req.body)
+      console.log(req.body)
       // res.send(JSON.stringify(req.body)); 
       // console.log(req.body.value)
       // let newGroup = {
@@ -79,7 +79,7 @@ const userController = {
       //   }
 
       User.findOneAndUpdate(
-        {'username': 'Pie2'},
+        {'username': 'DoggieLikesTreats'},
         { $addToSet: {groups: req.body.value}}, 
         {upsert: true, new: true, runValidators: true},
         function(err,result){
@@ -94,9 +94,15 @@ const userController = {
     },
 
     removeGroup: function (req, res) {
-      User.findOneAndUpdate({username: req.body.username}, { $pull: { groups: req.body._id }}, {new: true}, (err, group) => {
-        if (err) return res.sendStatus(400);
-      })
+
+      User.findOneAndUpdate(
+        {'username': 'DoggieLikesTreats'},
+        { $pull: {groups: req.body.value}},
+        {upsert: true, new: true, runValidators: true},
+        function(err,result){
+          if(err){return err}
+            res.send(JSON.stringify(result.groups))
+        })
     }
 
 }

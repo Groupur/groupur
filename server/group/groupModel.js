@@ -8,7 +8,8 @@ const groupSchema = new Schema({
     min_amt: { type: Number, required: false, default: 25 },
     discount_amt: { type: Number, required: false, default: 0.05 },
     orig_price: { type: Number, required: false, default: 100 },
-    members: [{username: String, amount: Number}]
+    members: [{username: String, amount: Number}],
+    groups: { type: Array, required: false}
 });
 
 

@@ -38,6 +38,12 @@
   padding-right:6px;
 }
 
+.button {
+  padding: 2px;
+  height: 10px;
+  font-size: 8px;
+}
+
 /* UserMain component style */
 #userMain {
   height:100%;
@@ -89,6 +95,9 @@
   list-style-type: none;
 } 
 
+ul {
+  list-style-type: none;
+}
 #userGroupList li, #groupsList li {
   overflow:hidden; overflow-y:scroll
 }

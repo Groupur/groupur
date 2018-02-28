@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { Group } = require('./groupModel');
+const Group = require('./groupModel');
 
 const groupController = {
 
@@ -21,9 +21,14 @@ const groupController = {
   },
 
   addOrder: function(req, res) {
-    Group.findOneAndUpdate({group_id: req.body.group_id}, { $inc: { min_amt: -1} }, {new: true}, (err, group) => {
-      if (err) return res.sendStatus(400);
-    })
+    Group.findOneAndUpdate(
+        {'group_id': 1},
+        { $addToSet: {groups: req.body.value}}, 
+        {upsert: true, new: true, runValidators: true},
+        function(err,result){
+          if(err){return err}
+            res.send(JSON.stringify(result.groups))
+        })
   },
 
   removeOrder: function(req, res) {
